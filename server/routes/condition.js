@@ -1,6 +1,6 @@
 import {Router} from 'express';
 // import cateCtrl from '../controllers/category.controller'
-import indexCtrl from '../controllers/indexController';
+import indexCtrl from '../controllers/IndexController';
 
 
 const router = Router()

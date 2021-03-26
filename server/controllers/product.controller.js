@@ -107,14 +107,15 @@ const getProdName = async (req, res) => {
     return res.send(prodName);
   };
   
-  const getCateId = async (req, res) => {
-	  const cateName = await sequelize.query(
-		`select * from product  where lower(prod_name) like lower(:prod_name) `
-		,
-		{ replacements: { prod_name: "%"+req.params.prod_name+'%' }, type: sequelize.QueryTypes.SELECT }
-	  );
-	  return res.send(cateName);
-	};
+const getProdStatus = async (req, res) => {
+    const prodName = await sequelize.query(
+      `select * from product   where prod_status="blokir" and lower(prod_name) like lower(:prodStatus) `
+      ,
+      { replacements: { prod_name: '%'+req.params.prodStatus+'%' }, type: sequelize.QueryTypes.SELECT }
+    );
+    return res.send(prodName);
+  };
+  
 
  
 
@@ -125,5 +126,6 @@ export default {
 	addProduct,
 	editProduct,
 	deleteProduct,
-	getProdName
+	getProdName,
+	getProdStatus
 }

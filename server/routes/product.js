@@ -9,4 +9,5 @@ router.put('/:prod_id', productCtrl.editProduct);
 router.delete('/:prod_id', productCtrl.deleteProduct);
 
 router.get('/prod/:prod_name', productCtrl.getProdName);
+router.get('/prod/:prodStatus', productCtrl.getProdStatus);
 export default (router)

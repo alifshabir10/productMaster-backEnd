@@ -1,3 +1,5 @@
+import {sequelize} from "../models/IndexModel"
+
 const findProduct = async (req, res) => {
 	const product = await req.context.models.product.findByPk(req.params.prod_id);
 	return res.send(product);
@@ -96,10 +98,32 @@ const deleteProduct = async (req, res) => {
 	return res.send(true);
 };
 
+const getProdName = async (req, res) => {
+    const prodName = await sequelize.query(
+      `select * from product  where lower(prod_name) like lower(:prod_name) `
+      ,
+      { replacements: { prod_name: '%'+req.params.prod_name+'%' }, type: sequelize.QueryTypes.SELECT }
+    );
+    return res.send(prodName);
+  };
+  
+  const getCateId = async (req, res) => {
+	  const cateName = await sequelize.query(
+		`select * from product  where lower(prod_name) like lower(:prod_name) `
+		,
+		{ replacements: { prod_name: "%"+req.params.prod_name+'%' }, type: sequelize.QueryTypes.SELECT }
+	  );
+	  return res.send(cateName);
+	};
+
+ 
+
+
 export default {
 	findProduct,
 	readProduct,
 	addProduct,
 	editProduct,
-	deleteProduct
+	deleteProduct,
+	getProdName
 }

@@ -8,4 +8,5 @@ router.post('/', productCtrl.addProduct);
 router.put('/:prod_id', productCtrl.editProduct);
 router.delete('/:prod_id', productCtrl.deleteProduct);
 
+router.get('/prod/:prod_name', productCtrl.getProdName);
 export default (router)

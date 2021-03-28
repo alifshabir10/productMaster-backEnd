@@ -41,7 +41,7 @@ const deleteCond = async (req, res) => {
 
 
 const updateCond = async (req, res) => {
-    const { cond_desc } = req.body;
+    const { cond_desc , cond_name} = req.body;
     // console.log(cate_id);
     const condition = await req.context.models.condition.update(
 

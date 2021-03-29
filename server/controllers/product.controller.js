@@ -116,6 +116,16 @@ const getProdStatus = async (req, res) => {
 	return res.send(prodName);
 };
 
+const getProdSearch = async (req, res) => {
+	const prodName = await sequelize.query(
+		`select prim_id,prim_path, prod_id,prod_name, prod_desc,prod_price, prod_stock, prod_weight,prod_status, prod_reason, prod_priorty, prod_priority_sort from product join product_images on prod_id = prim_prod_id  where lower(prod_name) like lower(:prod_name)
+		 `
+		,
+		{ replacements: { prod_name: '%' + req.params.prod_name + '%' }, type: sequelize.QueryTypes.SELECT }
+	);
+	return res.send(prodName);
+};
+
 
 const getProdPriority = async (req, res) => {
 	const prodName = await sequelize.query(
@@ -138,5 +148,6 @@ export default {
 	deleteProduct,
 	getProdName,
 	getProdStatus,
-	getProdPriority
+	getProdPriority,
+	getProdSearch,
 }

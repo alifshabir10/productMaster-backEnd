@@ -11,4 +11,5 @@ router.delete('/:prod_id', productCtrl.deleteProduct);
 
 router.get('/prod/:prod_name', productCtrl.getProdName);
 router.get('/stat/:prodStatus', productCtrl.getProdStatus);
+router.get('/search/:prod_name', productCtrl.getProdSearch);
 export default (router)

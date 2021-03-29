@@ -1,4 +1,4 @@
-import {sequelize} from "../models/IndexModel"
+import { sequelize } from "../models/IndexModel"
 
 const findProduct = async (req, res) => {
 	const product = await req.context.models.product.findByPk(req.params.prod_id);
@@ -99,25 +99,35 @@ const deleteProduct = async (req, res) => {
 };
 
 const getProdName = async (req, res) => {
-    const prodName = await sequelize.query(
-      `select * from product  where lower(prod_name) like lower(:prod_name) `
-      ,
-      { replacements: { prod_name: '%'+req.params.prod_name+'%' }, type: sequelize.QueryTypes.SELECT }
-    );
-    return res.send(prodName);
-  };
-  
-const getProdStatus = async (req, res) => {
-    const prodName = await sequelize.query(
-      `select * from product   where prod_status="blokir" and lower(prod_name) like lower(:prodStatus) `
-      ,
-      { replacements: { prod_name: '%'+req.params.prodStatus+'%' }, type: sequelize.QueryTypes.SELECT }
-    );
-    return res.send(prodName);
-  };
-  
+	const prodName = await sequelize.query(
+		`select * from product  where lower(prod_name) like lower(:prod_name) `
+		,
+		{ replacements: { prod_name: '%' + req.params.prod_name + '%' }, type: sequelize.QueryTypes.SELECT }
+	);
+	return res.send(prodName);
+};
 
- 
+const getProdStatus = async (req, res) => {
+	const prodName = await sequelize.query(
+		`select * from product   where prod_status="blokir" and lower(prod_name) like lower(:prodStatus) `
+		,
+		{ replacements: { prod_name: '%' + req.params.prodStatus + '%' }, type: sequelize.QueryTypes.SELECT }
+	);
+	return res.send(prodName);
+};
+
+
+const getProdPriority = async (req, res) => {
+	const prodName = await sequelize.query(
+		`select prim_id,prim_path, prod_id,prod_name, prod_desc,prod_price, prod_stock, prod_weight,prod_status, prod_reason, prod_priorty, prod_priority_sort from product join product_images on prod_id = prim_prod_id  order by prod_priority_sort desc   `
+		,
+		{ replacements: { prod_name: req.params.prod_priority_sort }, type: sequelize.QueryTypes.SELECT }
+	);
+	return res.send(prodName);
+};
+
+
+
 
 
 export default {
@@ -127,5 +137,6 @@ export default {
 	editProduct,
 	deleteProduct,
 	getProdName,
-	getProdStatus
+	getProdStatus,
+	getProdPriority
 }

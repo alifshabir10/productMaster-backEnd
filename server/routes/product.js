@@ -2,6 +2,7 @@ import { Router } from "express"
 import productCtrl from "../controllers/product.controller"
 
 const router = Router ()
+router.get('/priority', productCtrl.getProdPriority);
 router.get ('/', productCtrl.readProduct)
 router.get('/:prod_id', productCtrl.findProduct);
 router.post('/', productCtrl.addProduct);

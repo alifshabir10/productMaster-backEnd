@@ -1,4 +1,4 @@
-import {sequelize} from '../models/IndexModel'
+import { sequelize } from '../models/IndexModel'
 
 // select Brand
 const allCategory = async (req, res) => {
@@ -26,7 +26,7 @@ const findCate = async (req, res) => {
 const getCateId = async (req, res) => {
     const CateId = await sequelize.query(
         'select cate_name from category where cate_cate_id = 0',
-        {type: sequelize.QueryTypes.SELECT}
+        { type: sequelize.QueryTypes.SELECT }
     )
     return res.send(CateId);
 }
@@ -35,9 +35,17 @@ const getCateId = async (req, res) => {
 
 
 const deleteCate = async (req, res) => {
-    const result = await req.context.models.category.destroy({
-        where: { cate_id: req.params.cate_id },
-    });
+
+    const result2 = await req.context.models.categoryImg.destroy(
+        {
+            where: { caim_cate_id: req.params.cate_id },
+        });
+    const result = await req.context.models.category.destroy(
+        {
+            where: { cate_id: req.params.cate_id },
+        });
+
+       
 
     return res.send(200);
 };
